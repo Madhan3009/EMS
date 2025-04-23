@@ -3,11 +3,10 @@ package com.EMS.demo.Service;
 import com.EMS.demo.Entities.Employee;
 import com.EMS.demo.Repositories.EmployeeRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.temporal.TemporalAdjuster;
 import java.time.temporal.TemporalAdjusters;
 
 @Service
@@ -17,22 +16,16 @@ public class PayrollService{
 
 
 
-    public LocalDate isendofMonth(Employee employee)
+    public boolean isendofMonth(Employee employee)
     {
-        LocalDateTime today = employee.getOut_time();
-        LocalDate date = today.toLocalDate();
-
-        return date.with(TemporalAdjusters.lastDayOfMonth());
+        LocalDate date = LocalDate.now();
+        LocalDate lastDay=date.with(TemporalAdjusters.lastDayOfMonth());
+        return date.equals(lastDay);
     }
 
-    public LocalDate isstartofMonth(Employee employee)
-    {
-        LocalDateTime today = employee.getIn_time();
-        LocalDate date = today.toLocalDate();
-
-        return date.with(TemporalAdjusters.firstDayOfMonth());
+    public Employee creditSalary(Employee employee){
+        
     }
-
 
 
 
