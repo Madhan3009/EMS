@@ -16,7 +16,7 @@ public class PayrollService{
 
 
 
-    public boolean isendofMonth(Employee employee)
+    public boolean isendofMonth()
     {
         LocalDate date = LocalDate.now();
         LocalDate lastDay=date.with(TemporalAdjusters.lastDayOfMonth());
@@ -24,7 +24,18 @@ public class PayrollService{
     }
 
     public Employee creditSalary(Employee employee){
-        
+        employee.setStatus(true);
+        return employeeRepo.save(employee);
+    }
+
+    public Employee credit(Employee employee){
+        if(isendofMonth()){
+            creditSalary(employee);
+        }
+        else{
+            return employee;
+        }
+        return employee;
     }
 
 

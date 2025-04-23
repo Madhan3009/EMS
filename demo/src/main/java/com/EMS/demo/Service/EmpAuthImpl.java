@@ -28,6 +28,10 @@ public class EmpAuthImpl {
     }
 
     public Employee register(Employee employee){
+        if(employeeRepo.findByEmail(employee.getEmpEmail())!=null){
+            throw new RuntimeException("Email already exists");
+        }
+
         employee.setPassword(passwordEncoder.encode(employee.getPassword()));
         employeeRepo.save(employee);
         return employee;
