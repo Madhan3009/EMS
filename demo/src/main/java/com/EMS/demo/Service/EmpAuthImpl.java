@@ -23,6 +23,9 @@ public class EmpAuthImpl {
     @Autowired
     private JWTService jwt;
 
+    @Autowired
+    private EmailService emailSender;
+
     private EmpAuthImpl(EmployeeRepo employeeRepo){
         this.employeeRepo=employeeRepo;
     }
@@ -33,6 +36,8 @@ public class EmpAuthImpl {
         }
 
         employee.setPassword(passwordEncoder.encode(employee.getPassword()));
+        emailSender.sendEmail(employee.getEmpEmail(),employee.getEmpEmail());
+
         employeeRepo.save(employee);
         return employee;
     }

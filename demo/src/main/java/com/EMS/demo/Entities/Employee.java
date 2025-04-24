@@ -61,7 +61,10 @@ public class Employee {
     private String designation;
 
     @Column
-    private Boolean status;
+    private Boolean salaryStatus;
+
+    @Column
+    private Boolean enabled;
 
     @ManyToOne
     @JoinColumn(name = "HRid")
