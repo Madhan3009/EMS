@@ -1,9 +1,18 @@
 package com.EMS.demo.Entities;
 
 import jakarta.persistence.*;
+import lombok.*;
 
 import java.util.Date;
 
+
+@Builder
+@Getter
+@Setter
+@Entity
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name =  "employeeTable"  )
 public class ConfirmationToken
 {
     @Id
@@ -12,8 +21,15 @@ public class ConfirmationToken
     private Long tokenId;
 
     @Column(name="confirmation_token")
-    private String confirmationToken;
+    private StringBuilder confirmationToken;
+
+    @Column(name = "enabled")
+    private Boolean enabled;
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdDate;
+
+    private Boolean isenabled(){
+        return enabled;
+    }
 }
