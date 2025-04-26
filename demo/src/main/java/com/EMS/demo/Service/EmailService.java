@@ -25,6 +25,12 @@ public class EmailService implements EmailSender {
         mimeMailMessage.setText(email);
         mimeMailMessage.setFrom("baabaa@gmail.com");
         emailSender.send(mimeMessage);
+        String content = getString(email, token);
+        mimeMessageHelper.setText(content, true);
+        System.out.println("Email sent");
+    }
+
+    private static String getString(String email, ConfirmationToken token) {
         String content = "Dear [[name]],<br>\"\n" +
                 "            + \"Please click the link below to verify your registration:<br>\"\n" +
                 "            + \"<h3><a href=\\\"[[CODE]]\\\" target=\\\"_self\\\">Verification Code</a></h3>\"\n" +
@@ -32,8 +38,7 @@ public class EmailService implements EmailSender {
                 "            + \"Your company name.";
         content = content.replace("[[name]]", email);
         content = content.replace("[[CODE]]", token.getConfirmationToken());
-        mimeMessageHelper.setText(content, true);
-        System.out.println("Email sent");
+        return content;
     }
 
-    }
+}

@@ -5,6 +5,7 @@ import com.EMS.demo.Entities.Employee;
 import com.EMS.demo.Repositories.ConfirmationTokenRepo;
 import com.EMS.demo.Repositories.EmployeeRepo;
 import jakarta.mail.MessagingException;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -42,6 +43,7 @@ public class EmpAuthImpl {
         this.employeeRepo=employeeRepo;
     }
 
+    @Transactional
     public Employee register(Employee employee) throws MessagingException {
         if(employeeRepo.findByEmail(employee.getEmpEmail())!=null){
             throw new RuntimeException("Email already exists");
@@ -55,12 +57,15 @@ public class EmpAuthImpl {
         return employee;
     }
 
-    public void checkCode(String code){
-        Employee emp = new Employee();
+    @Transactional
+    public void checkCode(String Email,String code){
+        Employee emp = employeeRepo.findByEmail(Email);
         ConfirmationToken token = confirmationTokenRepo.findByConfirmationToken(code);
         emp.setEnabled(token != null);
         employeeRepo.save(emp);
     }
+
+    @Transactional
     public String verify(Employee employee){
         Authentication authentication = authMana.authenticate(new UsernamePasswordAuthenticationToken(employee.getEmpFirstname(),employee.getPassword()));
         if(authentication.isAuthenticated()){

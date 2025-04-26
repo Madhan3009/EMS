@@ -28,8 +28,4 @@ public class ConfirmationToken
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdDate;
-
-    private Boolean isenabled(){
-        return enabled;
-    }
 }
