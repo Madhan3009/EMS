@@ -26,8 +26,8 @@ public class Employee {
     @Column
     private String empLastname;
 
-    @Column
-    private String empEmail;
+    @Column(name = "email")
+    private String email;
 
     @Column
     private LocalDateTime in_time;
@@ -66,6 +66,9 @@ public class Employee {
     @Column
     private Boolean enabled;
 
+    @Column
+    private Boolean status;
+
     @ManyToOne
     @JoinColumn(name = "HRid")
     private HR hr;
@@ -73,4 +76,8 @@ public class Employee {
     @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     @JoinTable(name = "employee_roles",joinColumns = @JoinColumn(name = "empId"),inverseJoinColumns = @JoinColumn(name = "roleId"))
     private List<RolesAssign> roles;
+
+    @OneToMany
+    @JoinColumn(name = "empId")
+    private List<Leave> leaves;
 }

@@ -6,9 +6,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class Notification {
 
-    public Employee checkStatus(Employee employee){
-        if(employee.getEnabled(){
-
+    public void checkStatus(Employee employee){
+        if(employee.getEnabled() == false){
+            System.out.println("Employee not enabled,So Services are not available");
         }
     }
+
 }

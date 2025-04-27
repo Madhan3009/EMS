@@ -18,7 +18,7 @@ public class DemoApplication {
 	public CommandLineRunner testConnection(DataSource dataSource) {
 		return args -> {
 			try (Connection conn = dataSource.getConnection()) {
-				System.out.println("✅ Connected to: " + conn.getMetaData().getURL());
+				System.out.println("Connected to: " + conn.getMetaData().getURL());
 			}
 		};
 	}

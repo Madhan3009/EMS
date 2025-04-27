@@ -9,10 +9,12 @@ import java.util.Date;
 @Builder
 @Getter
 @Setter
-@Entity
+
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name =  "employeeTable"  )
+@Entity
+@Table(name = "employeeTable")
+
 public class ConfirmationToken
 {
     @Id
@@ -22,6 +24,10 @@ public class ConfirmationToken
 
     @Column(name="confirmation_token")
     private StringBuilder confirmationToken;
+
+    @OneToOne(targetEntity = Employee.class, fetch = FetchType.EAGER)
+    @JoinColumn(name = "empId")
+    private Employee employee;
 
     @Column(name = "enabled")
     private Boolean enabled;
